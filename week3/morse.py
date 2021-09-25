@@ -1,18 +1,22 @@
 class morse:
     def __init__(self, format = False):
 
+        self.result = []
+
         self.eom_flag = True
         self.eol_flag = True
-        self.result = []
+        self.symbolic_format = False
+        
         self.dict = {
-            'dash': 'dah',
             'dot': 'di',
+            'dash': 'dah',
             'space':', ',
             'eol': 'dit',   # end of letter
             'eom': '.'      # end of message 
             }
 
-        if format: 
+        if format:
+            self.symbolic_format = self.is_symbolic(format)
             self.update_dict(format)
 
     def __pos__(self):
@@ -38,7 +42,7 @@ class morse:
         """
 
         if self.eom_flag:
-            self.result.append('.')
+            self.result.append(self.dict['eom'])
             self.eom_flag = False
             
         self.result.append(self.dict['dash'])
@@ -55,13 +59,42 @@ class morse:
         self.result.append(self.dict['space'])
         return self
 
-    def update_dict(self):
-        pass
+    def is_symbolic(self, format: str) -> bool:
+        self.symbolic_format = (format.find(' ') == -1)
+        return self.symbolic_format
+    
+    def parse_format(self, format: str) -> list:
+        if self.symbolic_format:
+            return list(format)
+        return format.split(' ')
 
+    def update_dict(self, format: str) -> bool:
+        format_list = self.parse_format(format)
+        format_len = len(format_list)
+        assert 2 <= format_len <= 4, "format should have between  2 and 4 params (both ends including)" 
+
+        if format_len == 2:
+            self.dict['dot'] = format_list[0]
+            self.dict['dash'] = format_list[1]
+        
+        if format_len == 3:
+            self.dict['dot'] = format_list[0]
+            self.dict['eol'] = format_list[1]
+            self.dict['dash'] = format_list[2]
+        
+        if format_len == 4:
+            self.dict['dot'] = format_list[0]
+            self.dict['eol'] = format_list[1]
+            self.dict['dash'] = format_list[2]
+            self.dict['eom'] = format_list[3]
+        
+        return
+
+    
     def __str__(self):
-        # return str(self.result[::-1])
-        # return ''
+        # TODO make it print out correctly
+        return str(self.result[::-1])
 
-
-a = -++~+-+morse()
-print(a)
+print(--+~-~-++~+++-morse("dot dot dash ///"))
+print(--+~-~-++~+++-morse("._-|"))
+print(--+~-~-++~+++-morse("ai aui oi "))
