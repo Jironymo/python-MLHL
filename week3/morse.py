@@ -73,6 +73,15 @@ class morse:
         format_len = len(format_list)
         assert 2 <= format_len <= 4, "format should have between  2 and 4 params (both ends including)" 
 
+        # before updating dict based on number of input params,
+        # update it based on whether it is symbolic
+        # Признаюсь, данный эджкейс кажется костыльно представленным в задании. = (
+        # Пришлось догадываться из примеров инпута-аутпута
+        if self.symbolic_format:
+            self.dict['space'] = ' '
+            self.dict['eol'] = '.'
+            self.dict['eom'] = ''
+
         if format_len == 2:
             self.dict['dot'] = format_list[0]
             self.dict['dash'] = format_list[1]
@@ -87,14 +96,21 @@ class morse:
             self.dict['eol'] = format_list[1]
             self.dict['dash'] = format_list[2]
             self.dict['eom'] = format_list[3]
-        
+
         return
 
-    
     def __str__(self):
         # TODO make it print out correctly
         return str(self.result[::-1])
 
-print(--+~-~-++~+++-morse("dot dot dash ///"))
-print(--+~-~-++~+++-morse("._-|"))
-print(--+~-~-++~+++-morse("ai aui oi "))
+if __name__ == "__main__":
+
+    print(-+morse())
+    print(-++~+-+morse())
+    print(--+~-~-++~+++-morse())
+    print(--+~-~-++~+++-morse(".-"))
+    print(--+~-~-++~+++-morse("..-"))
+    print(--+~-~-++~+++-morse("._-|"))
+    print(--+~-~-++~+++-morse("dot DOT dash"))
+    print(--+~-~-++~+++-morse("ai aui oi "))
+    print(--+~-~-++~+++-morse("dot dot dash ///"))
