@@ -12,17 +12,7 @@ def decimalSummator(string):
     return sum(list_of_nums)
 
 def isScrollingPermutation(str1, str2):
-    '''
-    Check if str1 is a scrolling permutation and vice versa.
-    Unfortunately, couldn't come up with a non-brute force solution, 
-    which has O(n) exec and O(n^2) space complexity.
-    ''' 
-    # initialize empty set to hold different permutations of str1
-    scrolling_permutations = set()
-    for i in range(len(str1)):
-        temp = str1[i:] + str1[:i]
-        scrolling_permutations.add(temp)
-    return str2 in scrolling_permutations
+    return str2 in str1+str1
 
 def sentenceReverser(string):
     pattern = '([A-Za-z0-9]+|[.?!])'

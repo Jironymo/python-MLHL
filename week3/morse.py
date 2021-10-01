@@ -1,6 +1,5 @@
 class morse:
     def __init__(self, format = False):
-
         self.result = []
 
         self.eom_flag = True
@@ -23,7 +22,6 @@ class morse:
         """
         implements dot
         """
-
         if self.eom_flag:
             self.result.append('.')
             self.eom_flag = False
@@ -40,7 +38,6 @@ class morse:
         """
         implements dash
         """
-
         if self.eom_flag:
             self.result.append(self.dict['eom'])
             self.eom_flag = False
@@ -52,7 +49,6 @@ class morse:
         """
         implements space
         """
-
         # enable eol flag after space is encountered
         # since next dot is to be eol
         self.eol_flag = True
@@ -96,12 +92,10 @@ class morse:
             self.dict['eol'] = format_list[1]
             self.dict['dash'] = format_list[2]
             self.dict['eom'] = format_list[3]
-
         return
 
     def __str__(self):
-        # TODO make it print out correctly
-        return str(self.result[::-1])
+        return ''.join(self.result[::-1].copy())
 
 if __name__ == "__main__":
 

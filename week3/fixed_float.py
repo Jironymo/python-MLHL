@@ -14,21 +14,29 @@ def fixed_float(n=3):
                 if type(value) == float: kwargs[key] = round(value, n) 
 
             result = func(*pos_args, **name_args)
-            return round(result, n)
+            if type(result) == float:
+                return round(result, n)
+            return result
         return wrapper
     return decorator
 
 if __name__ == '__main__':    
+    # @fixed_float(3)
+    # def sincos(a, b):
+    #     from math import sin, cos
+    #     result = sin(a) ** 2 + cos(b) ** 2
+    #     return result
+
+    # @fixed_float(4)
+    # def aver(*args, sign=1):
+    #     return sum(args) * sign
+
+    # from math import pi   
+    # print(sincos(pi / 2, pi / 2), sincos(pi / 4, 3 * pi / 4))
+    # print(aver(2.45675901, 3.22656321, 3.432654345, 4.075463224, sign=-1))
+
     @fixed_float(3)
-    def sincos(a, b):
-        from math import sin, cos
-        result = sin(a) ** 2 + cos(b) ** 2
-        return result
+    def stringer(a):
+        return str(a)
 
-    @fixed_float(4)
-    def aver(*args, sign=1):
-        return sum(args) * sign
-
-    from math import pi   
-    print(sincos(pi / 2, pi / 2), sincos(pi / 4, 3 * pi / 4))
-    print(aver(2.45675901, 3.22656321, 3.432654345, 4.075463224, sign=-1))
+    print(stringer(0.232323232))
