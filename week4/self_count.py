@@ -32,17 +32,17 @@ class SelfCount:
         SelfCount.decrement_count()
 
 
+if __name__ == '__main__':
+    a = SelfCount()
+    b = SelfCount()
+    c = SelfCount()
+    a.count = 2
+    del a.count
 
-a = SelfCount()
-b = SelfCount()
-c = SelfCount()
-a.count = 2
-del a.count
+    print(a.count)
+    print(b.count)
+    print(c.count)
 
-print(a.count)
-print(b.count)
-print(c.count)
-
-del a
-print(c.count)
+    del a
+    print(c.count)
 
