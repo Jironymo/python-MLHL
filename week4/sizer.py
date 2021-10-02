@@ -15,16 +15,16 @@ def sizer(cls):
 
     return Wrapper
 
-if __name__ == '__main__'
-@sizer
-class S(str): pass
+if __name__ == '__main__':
+    @sizer
+    class S(str): pass
 
-@sizer
-class N(float): pass
+    @sizer
+    class N(float): pass
 
-s = S("QSXWDC")
-n = N(2.718281828459045)
-print(s, n)
-print(s.size, n.size)
-s.size, n.size = "Wait", "what?"
-print(s.size, n.size) 
+    s = S("QSXWDC")
+    n = N(2.718281828459045)
+    print(s, n)
+    print(s.size, n.size)
+    s.size, n.size = "Wait", "what?"
+    print(s.size, n.size) 
