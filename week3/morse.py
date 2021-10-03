@@ -4,6 +4,7 @@ class morse:
 
         self.eom_flag = True
         self.eol_flag = True
+
         self.symbolic_format = False
         
         self.dict = {
@@ -26,11 +27,15 @@ class morse:
             self.result.append('.')
             self.eom_flag = False
 
+        # add space after eol is encountered and format is not symbolic
         if self.eol_flag:
             self.result.append(self.dict['eol'])
             self.eol_flag = False
         else:
-            self.result.append(self.dict['dot'])
+            if self.symbolic_format:
+                self.result.append(self.dict['dot'])
+            else:
+                self.result.append(self.dict['dot'] + ' ')
 
         return self
 
@@ -41,8 +46,16 @@ class morse:
         if self.eom_flag:
             self.result.append(self.dict['eom'])
             self.eom_flag = False
-            
-        self.result.append(self.dict['dash'])
+        
+        # add space after eol is encountered and format is not symbolic
+        if self.eol_flag:
+            self.result.append(self.dict['dash'])
+            self.eol_flag = False
+        else:
+            if self.symbolic_format:
+                self.result.append(self.dict['dash'])
+            else:
+                self.result.append(self.dict['dash'] + ' ')
         return self
 
     def __invert__(self):
@@ -95,7 +108,7 @@ class morse:
         return
 
     def __str__(self):
-        return ''.join(self.result[::-1].copy())
+        return ''.join(self.result[::-1])
 
 if __name__ == "__main__":
 

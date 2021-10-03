@@ -12,6 +12,8 @@ def decimalSummator(string):
     return sum(list_of_nums)
 
 def isScrollingPermutation(str1, str2):
+    if len(str1) != len(str2):
+        return False
     return str2 in str1+str1
 
 def sentenceReverser(string):
