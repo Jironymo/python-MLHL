@@ -1,10 +1,7 @@
 def sizer(cls):
-
     class Wrapper:
-
         def __init__(self, *args, **kwargs):
             self._obj = cls(*args, **kwargs)
-            
             try:
                 self.size = len(self._obj)
             except TypeError:
