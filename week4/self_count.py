@@ -1,35 +1,25 @@
 from typing import Any
 
-
 class SelfCount:
-    count = 0
-    
-    @classmethod
-    def increment_count(cls):
-        cls.count += 1
-
-    @classmethod
-    def decrement_count(cls):
-        cls.count -= 1
-    
+    _count = 0
 
     def __init__(self):
-        SelfCount.increment_count()
+        SelfCount._count += 1
 
-    def __getattribute__(self, name: str):
-        if name == 'count':
-            return SelfCount.count
+    @property
+    def count(self):
+        return SelfCount._count
 
-    def __setattr__(self, name: str, value: Any) -> None:
-        if name == 'count':
-            return None
+    @count.setter
+    def count(self, new_count):
+        return None
 
-    def __delattr__(self, name: str) -> None:
-        if name == 'count':
-            return None
+    @count.deleter
+    def count(self):
+        return None
 
     def __del__(self):
-        SelfCount.decrement_count()
+        SelfCount._count -= 1
 
 
 if __name__ == '__main__':
