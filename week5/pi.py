@@ -2,21 +2,21 @@
 # написать бесконечный генератор pigen(), возвращающий последовательно 
 # 4, 4-4/3, 4-4/3+4/5, 4-4/3+4/5-4/7 …
 
-def peace_of_pie():
-    sign = 1
-    denominator = 1
-    series = 1
-    yield 4*series
+def pigen():
+    sign = -1
+    denominator = -1
+    series = 0
+
     while True:
         sign *= -1
         denominator += 2
-        series = series + sign*(1/denominator)
-        yield 4*series
+        series = series + sign*(4/denominator)
+        yield series
 
-pi = peace_of_pie()
+pi = pigen()
 print(next(pi))
 
-for i in range(10000000):
+for i in range(1000):
     print(next(pi))
 
 

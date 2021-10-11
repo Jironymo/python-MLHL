@@ -3,23 +3,17 @@
 # Рассмотрим последовательность seq, образованную всеми элементами seq0, затем — всеми элементами seq1, и т. д. 
 # Вернуть эта функция должна итератор, пробегающий элементы последовательности seq с begin до end - 1 включительно.
 
-from itertools import chain
+from itertools import chain, islice
 
 def chainslice(begin, end, *seqs):
 
     seq_iterator = chain(*seqs)
 
-    for _ in range(begin, end):
-        yield next(seq_iterator)
+    return islice(seq_iterator, begin, end, None)
 
-it = chainslice(1, 6, [1,2,3,4], [2,2], 'abc')
+it = chainslice(2, 10, ['zero', 1, 'two'], [3, 4, 'five', 6], 'seven')
 
-print(next(it))
-print(next(it))
-print(next(it))
-print(next(it))
-print(next(it))
-print(next(it))
+print(list(it))
 
 
 
